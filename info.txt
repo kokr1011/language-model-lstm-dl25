@@ -1,0 +1,28 @@
+Install tensorflow in new python 3.9 environment [tfenv]
+conda create --name ENV_NAME python=3.9
+- pip install tensorflow
+
+
+
+
+Create new environment with python 3.7.10 [tfconv]
+(https://github.com/tensorflow/tfjs/tree/master/tfjs-converter#regular-conversion-script-tensorflowjs_converter)
+$ conda create --name ENV_NAME python=3.7.10
+$ conda activate ...
+$ python -m pip install --upgrade pip
+$ pip install tensorflowjs[wizard]
+
+Start the wizard and cofigure paths using
+$ tensorflowjs_wizard
+
+
+then do:
+
+$ python -m http.server 8000
+
+$ Then open: http://localhost:8000
+
+
+
+Useful tutorial Keras & TFJS:
+https://medium.com/@andrew.w.sale/deploying-text-classification-from-keras-to-tensorflow-js-92c614dca4ec

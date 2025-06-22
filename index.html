@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wortvorhersage mit LSTM</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.19.0/dist/tf.min.js"></script>
+  <style>
+    button {
+      margin: 2px;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    #output button {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #output button:hover {
+      background-color: #d0eaff;
+    }
+  </style>
+</head>
+<body>
+  <h2>Next Word Prediction</h2>
+  <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br>
+  <button onclick="predictNext()">Vorhersage</button>
+  <button onclick="continueText()">Weiter</button>
+  <div id="output" style="margin-top:20px;"></div>
+
+<script>
+  let model;
+  let wordIndex = {};
+  let indexWord = {};
+  const maxLen = 9; // sollte mit max_seq_len -1 aus Python übereinstimmen
+
+  // Lade Modell und Tokenizer
+  async function loadResources() {
+    // Modell laden
+    model = await tf.loadLayersModel('lm_tfjs/model.json');
+    console.log("✅ Modell geladen");
+
+    // Tokenizer laden
+    const response = await fetch('tokenizer_word2index.json');
+    const data_w2i = await response.json();
+    const response2 = await fetch('tokenizer_index2word.json');
+    const data_i2w = await response2.json();
+
+    wordIndex = data_w2i //.config.word_index;
+    indexWord = {};
+    for (const key in data_i2w) {
+      indexWord[parseInt(key)] = data_i2w[key];
+    }
+
+    console.log("✅ Tokenizer geladen mit", Object.keys(wordIndex).length, "Wörtern");
+
+  }
+
+  // Text -> Token-IDs (Array)
+  function textToSequence(text) {
+    // Kleinschreibung + Zeichen filtern + split
+    const cleanText = text.toLowerCase().replace(/[^a-zäöüß0-9 ]/g, '').trim();
+    const words = cleanText.split(/\s+/);
+    console.log("Eingegebene Wörter:", words);
+
+    const seq = words.map(w => {
+      if (wordIndex[w]) {
+        return wordIndex[w];
+      } else {
+        console.warn(`Wort nicht im Tokenizer gefunden: "${w}"`);
+        return 0;
+      }
+    });
+    const filteredSeq = seq.filter(x => x > 0);
+
+    if (filteredSeq.length === 0) {
+      alert("Keine bekannten Wörter im Text!");
+    }
+
+    console.log("Token-Sequenz:", filteredSeq);
+    return filteredSeq;
+  }
+
+  // Padding von Sequenzen links mit 0, Länge maxLen
+  function padSequence(seq) {
+    //const padded = new Array(Math.abs(maxLen - seq.length)).fill(0).concat(seq).slice(-maxLen);
+    const truncated = seq.slice(-maxLen); // schneidet von rechts, falls zu lang
+    const padded = new Array(maxLen - truncated.length).fill(0).concat(truncated);
+    return tf.tensor2d([padded]);
+  }
+
+  // Vorhersage machen und Top-5 Vorschläge anzeigen
+  async function predictNext() {
+    const inputText = document.getElementById("input").value.trim();
+    if (!inputText) return alert("Bitte gib einen Text ein.");
+
+    const seq = textToSequence(inputText);
+    if (seq.length === 0) return; // keine bekannten Wörter
+
+    console.log("Eingegebene Sequenz:", seq);
+    const padded = padSequence(seq);
+    console.log("Nach padding Sequenz:", seq);
+    const prediction = model.predict(padded);
+    const data = await prediction.data();
+
+    // Top-5 Wörter mit Wahrscheinlichkeit
+    const topWords = Array.from(data)
+      .map((prob, idx) => ({ word: indexWord[idx], prob }))
+      .filter(x => x.word)
+      .sort((a, b) => b.prob - a.prob)
+      .slice(0, 5);
+
+    const outputDiv = document.getElementById("output");
+    outputDiv.innerHTML = "<b>Wortvorschläge:</b><br>";
+    topWords.forEach(w => {
+      outputDiv.innerHTML += `<button onclick="addWord('${w.word}')">${w.word} (${(w.prob * 100).toFixed(2)}%)</button> `;
+    });
+  }
+
+  // Wort ans Textfeld anhängen und neue Vorhersage starten
+  function addWord(word) {
+    const textarea = document.getElementById("input");
+    textarea.value = (textarea.value + " " + word).trim();
+    predictNext();
+  }
+
+  // Automatisch das wahrscheinlichste Wort anhängen
+  async function continueText() {
+    const inputText = document.getElementById("input").value.trim();
+    if (!inputText) return alert("Bitte gib einen Text ein.");
+
+    const seq = textToSequence(inputText);
+    if (seq.length === 0) return;
+
+    const padded = padSequence(seq);
+    const prediction = model.predict(padded);
+    const data = await prediction.data();
+    const topIndex = data.indexOf(Math.max(...data));
+    const nextWord = indexWord[topIndex];
+    if (!nextWord) {
+      alert("Kein Wort gefunden.");
+      return;
+    }
+    addWord(nextWord);
+  }
+
+  loadResources();
+</script>
+
+</body>
+</html>
