@@ -26,6 +26,9 @@
   <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br>
   <button onclick="predictNext()">Vorhersage</button>
   <button onclick="continueText()">Weiter</button>
+  <button onclick="autoGenerate()">Auto</button>
+  <button onclick="stopAuto()">Stopp</button>
+  <button onclick="reset()">Reset</button>
   <div id="output" style="margin-top:20px;"></div>
 
 <script>
@@ -125,23 +128,52 @@
   }
 
   // Automatisch das wahrscheinlichste Wort anhängen
+  let autoInterval;
+  let autoCount = 0;
+  const maxAutoWords = 10;
+
+  async function autoGenerate() {
+    // Falls schon läuft, nicht nochmal starten
+    if (autoInterval) return;
+    autoCount = 0;
+
+    autoInterval = setInterval(async () => {
+      if (autoCount >= maxAutoWords) {
+        stopAuto();
+        return;
+      }
+      await continueText(); // Funktion erweitert, siehe unten
+      autoCount++;
+    }, 1000); // alle 1 Sekunde ein Wort hinzufügen (anpassen nach Wunsch)
+  }
+
+  function stopAuto() {
+    if (autoInterval) {
+      clearInterval(autoInterval);
+      autoInterval = null;
+    }
+  }
+
+  function reset() {
+    stopAuto();
+    const textarea = document.getElementById("input");
+    textarea.value = "";
+    document.getElementById("output").innerHTML = "";
+    // Falls du weitere Reset-Operationen hast, hier ergänzen
+  }
+
+  // continueText anpassen, damit sie async und Promise-konform ist
   async function continueText() {
     const inputText = document.getElementById("input").value.trim();
-    if (!inputText) return alert("Bitte gib einen Text ein.");
+    if (!inputText) return;
 
-    const seq = textToSequence(inputText);
-    if (seq.length === 0) return;
+    const sequence = textToSequence(inputText);
+    const padded = padSequence(sequence);
+    const data = await model.predict(padded).data();
 
-    const padded = padSequence(seq);
-    const prediction = model.predict(padded);
-    const data = await prediction.data();
     const topIndex = data.indexOf(Math.max(...data));
-    const nextWord = indexWord[topIndex];
-    if (!nextWord) {
-      alert("Kein Wort gefunden.");
-      return;
-    }
-    addWord(nextWord);
+    const word = indexWord[topIndex];
+    if (word) addWord(word);
   }
 
   loadResources();
