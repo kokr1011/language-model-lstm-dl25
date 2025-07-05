@@ -26,3 +26,113 @@ $ Then open: http://localhost:8000
 
 Useful tutorial Keras & TFJS:
 https://medium.com/@andrew.w.sale/deploying-text-classification-from-keras-to-tensorflow-js-92c614dca4ec
+
+
+Dataset:
+https://zenodo.org/records/15264903
+https://lingua.com/de/deutsch/lesen/#exercises
+
+
+
+Docu n-gram sequence:
+https://datascience.stackexchange.com/questions/118602/data-preparation-for-next-word-prediction
+
+Punktuation wurde vernachlässigt.
+
+Embedding layer
+
+TODO:
+
+use shorter training text (e.g. 20 words) and print output of tokenizer and padding
+compare with youtube video https://www.youtube.com/watch?v=jTjLf0ytSw8
+verify if accuracy reaches 1 -> what is wrong?
+
+
+
+Dokumentation-----
+1) Technisch
+
+Besonderheiten
+Das Neuronale Netz und der Tokenizer wurden zuerst lokal in Python trainiert und in 
+einem kompatiblem Format für TensorFlowJS gespeichert. Dies beschleunigte den Trainingsprozess und 
+ermöglichte schnellere Experimente mit verschiedenen Parametrisierungen.
+
+Umgebungen:
+- Training: Python 3.7.10 für Kompatibilität mit tensorflowjs
+- Deployment: JavaScript und HTML
+
+
+Verwendete Frameworks:
+- NumPy für mathematische Operationen
+- TensorFlow bzw. Keras zum Erstellen und Trainieren des Netzes
+- TensorFlowJS zur Speicherung und Deployment des trainierten Netzes
+- JSON zur Speicherung des Tokenizers (Wörterbuch)
+
+
+Die Trainingsdaten sind german_chats.txt -> Aufgrund der begrenzten Rechenleistung und für eine sinnvolle Vorhersage wurde ein kleiner Kontext-spezifischer Datensatz mit Chatnachrichten erstellt und zum Trainieren des Modells verwendet. Der Text wurde in Sequenzen mit einer Maximallänge von 10 Wörtern aufgeteilt. Für ein besseres Ergebnis wurden zusätzlich kürzere Sequenzen auf eine Länge von 10 gepadded und den Trainingsdaten hinzugefügt.
+
+
+Das Neuronale Netz besteht aus 4 Lagen. Die erste ist ein Embedding-Layer (N_in=Anzahl Wörter, N_out=100), das für eine bessere Wahrnehmung von dem Kontext und der Bedeutung sorgt. Danach folgen zwei LSTM-Layer (N = 100), gefolgt von einem Output-Layer (N = Anzahl Wörter) mit so vielen Neuronen wie die Anzahl der bekannten Wörter im Wörterbuch. Als Loss-funktion wurde die "Categorical Cross-Entropy" genommen. Der gewählte Optimierer ist Adam mit einer Lernrate von 0,01. Das Training wurde in Batches von 32 über 100 Epochen durchgeführt.
+
+
+Beobachtungen während des Trainings: Es wurden als Experiment auch andere Datensätze (Online-Artikel, mit ChatGPT generierte Texte, sowie gemischte Daten) genutzt. Die Online-Artikel haben sehr diverse Themen mit unterschiedlichem Kontext umfasst und das relativ kleine Netz konnte den Kontext nicht ausreichend gut erlernen, was zu einer eher zufälligen Vorhersage geführt hat. 
+
+
+
+Experimente:
+Satz = "Guten Abend, ich wollte dir kurz schreiben" 
+
+Getestet mit j = 1, 2, 3, ..., 7 Wörtern als Sequenz.
+
+j=1: innerhalb k = 100
+j=2: innerhalb k = 1 (richtig)
+j=3: innerhalb k = 100
+j=4: nicht innerhalb der ersten 100
+j=5: innerhalb k = 100
+j=6: innerhalb k = 100
+j=7: innerhalb k = 1 (richtig)
+
+---- Experimente ----
+-- Iteration 0 --
+1/1 [==============================] - 0s 10ms/step
+Textvorgabe: ['Guten']
+Vorhergesagtes Wort: ['stadt'] (34.1)
+-- Iteration 1 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 10ms/step
+Textvorgabe: ['Guten Abend,']
+Vorhergesagtes Wort: ['ich'] (99.93)
+-- Iteration 2 --
+Vorhersage innerhalb k = 1 Wörter.
+1/1 [==============================] - 0s 9ms/step
+Textvorgabe: ['Guten Abend, ich']
+Vorhergesagtes Wort: ['hoffe'] (54.94)
+-- Iteration 3 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 8ms/step
+Textvorgabe: ['Guten Abend, ich wollte']
+Vorhergesagtes Wort: ['hoffe'] (37.74)
+-- Iteration 4 --
+1/1 [==============================] - 0s 9ms/step
+Textvorgabe: ['Guten Abend, ich wollte dir']
+Vorhergesagtes Wort: ['daran'] (31.2)
+-- Iteration 5 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 10ms/step
+Textvorgabe: ['Guten Abend, ich wollte dir kurz']
+Vorhergesagtes Wort: ['sicher'] (42.85)
+-- Iteration 6 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 9ms/step
+Textvorgabe: ['Guten Abend, ich wollte dir kurz schreiben']
+Vorhergesagtes Wort: ['weil'] (85.4)
+Vorhersage innerhalb k = 1 Wörter.
+
+Experiment 3:
+Trainingsdaten mittels des Models rekonstruieren
+
+Ja, das funktioniert. (image_reconstruction.png)
+Es kann tatsächlich ein Datenschutzproblem entstehen, vor allem wenn in den Trainingsdaten 
+persönliche Daten wie Namen, Adressen, usw., vorhanden sind. Um dies zu vermeiden könnten eventuell in der Datenvorverarbeitung diese empfindlichen Daten entfernt oder ersetzt werden. 
+
+993166
