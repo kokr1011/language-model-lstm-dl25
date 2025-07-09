@@ -135,4 +135,4 @@ Ja, das funktioniert. (image_reconstruction.png)
 Es kann tatsächlich ein Datenschutzproblem entstehen, vor allem wenn in den Trainingsdaten 
 persönliche Daten wie Namen, Adressen, usw., vorhanden sind. Um dies zu vermeiden könnten eventuell in der Datenvorverarbeitung diese empfindlichen Daten entfernt oder ersetzt werden. 
 
-993166
+15114432325
