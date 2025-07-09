@@ -19,6 +19,23 @@
     #output button:hover {
       background-color: #d0eaff;
     }
+    h1, h2 {
+      color: #1976d2;
+    }
+    #loading {
+      font-size: 20px;
+      color: #555;
+      text-align: center;
+      margin-top: 100px;
+      font-family: Arial, sans-serif;
+    }
+    #loading h2 {
+      margin-bottom: 10px;
+      color: #1976d2;
+    }
+    #outer-container {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -31,7 +48,92 @@
   <button onclick="reset()">Reset</button>
   <div id="output" style="margin-top:20px;"></div>
 
-<script>
+<div id="outer-container">
+  <h1>Image Classification Web App using MobileNet and ml5.js</h1>
+
+  <h2>Overview</h2>
+  <p>
+    This project implements an interactive web application that performs real-time 
+    image classification using the MobileNet model through the ml5.js library. Users 
+    can observe the classification of a predefined set of images or upload their own images through a modern user interface.
+  </p>
+
+  <table id="container" style="width: 100%; border-collapse: collapse; margin-right:25px;">
+    <tbody>
+      <!-- Dynamisch befüllte Bilder und Charts -->
+    </tbody>
+  </table>
+
+  <section id="project-documentation">
+ 
+<h2>Discussion</h2>
+<p>The pretrained model correctly classified familiar everyday objects, places, landscapes, and representatives of flora and fauna in most cases.
+However, accurate classification generally required photos with good contrast, high resolution, and a clear depiction of the main object.
+It was particularly striking that even a partial view, such as a fragment of a tandem bicycle, led to a highly accurate classification, although even the human eye struggles to detect the second set of pedals and handlebars.
+On the other hand, the model's performance declined when images were more abstract, contained multiple objects, or when the objects showed a similar appearance but belonged to different classes.
+For example, classifying the Laika dog breed proved difficult, as it is easily confused with other breeds or even wolves.
+Several test images of this breed consistently resulted in misclassifications.
+A notable failure also appeared in the recognition of the Eiffel Tower, where neither standard photographs nor mosaic representations were correctly classified.
+This suggests that both landmarks and famous structures are not reliably recognized by the model.
+Non-standard visual forms and artistic styles appear to pose a considerable challenge for accurate classification.
+Overall, the experiment demonstrated both the strengths and the limitations of pretrained models when dealing with varying image complexities.</p>
+<h2>1) Technical Documentation</h2>
+ 
+  <h3>Frameworks and Libraries Used:</h3>
+<ul>
+<li><strong><a href="https://p5js.org/" target="_blank">p5.js</a></strong>: A JavaScript library that 
+      contains predefined templates that make it easier to develop directly in the web browser. This project was 
+      almost entirely developed in the p5.js editor, which offers instant compilation and dynamic tracking of 
+      code changes. Interactive visual elements also work smoothly.</li>
+<li><strong><a href="https://ml5js.org/" target="_blank">ml5.js</a></strong>: A simple machine learning 
+      library built on TensorFlow.js, used to load a pre-trained MobileNet model and perform image classification. 
+      Following the tutorial, I quickly and easily built the base and main functions of the application.</li>
+<li><strong><a href="https://www.chartjs.org/" target="_blank">Chart.js</a></strong>: A JavaScript library for 
+      data visualization using different types of charts. It was used to visualize the classification results through 
+      bar charts showing the confidence levels of the first three predictions.</li>
+<li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: A hosting platform 
+      for static sites, used for public accessibility of the application. The project has been uploaded to GitHub, from where 
+      it is directly deployed via this option.</li>
+</ul>
+ 
+  <h3>Technical Specifications:</h3>
+<ul>
+<ul>
+<li>The application dynamically generates a structured tabular layout, displaying images and their corresponding classification diagrams side by side.</li>
+<li>Drag-and-drop and traditional file upload mechanisms are supported for user-uploaded images, seamlessly integrated into the same layout structure as static images.</li>
+<li>In case of re-uploading a personal image, the uploaded images overwrite previous uploads, maintaining a clean and minimalist interface without duplication.</li>
+<li>All images (static and uploaded) are arranged and formatted uniformly (300x300px) to ensure a consistent user experience and visual clarity.</li>
+<li>Validation ensures that only JPG and PNG files under 5MB can be uploaded, with visible warnings if validation fails.</li>
+<li>The application is responsive and optimized for different screen sizes.</li>
+</ul>
+ 
+  </ul>
+ 
+  <h2>2) Subject-Specific Documentation</h2>
+ 
+  <h3>Implementation of Logic and Key Elements:</h3>
+<ul>
+<ul>
+<li>The application classifies a predefined set of static images using a pre-trained MobileNet model from ml5.js, dynamically displaying the results in a structured and adaptive table structure.</li>
+<li>Image classification is triggered automatically in the setup() function after preloading the images using the preload() method. Each image and its corresponding diagram are added as a new row in the table, maintaining a clear and consistent structure.</li>
+<li>Labels under each image serve to further explain the object being classified. The classification results are visualized using bar charts that show the three best predictions and their corresponding confidence percentages. By hovering over each of the bars, the specific numbers can be read.</li>
+<li>A dedicated upload section allows users to classify their own images, providing visual and interactive consistency with the predefined examples.</li>
+<li>The visual design follows Google’s Material Design guidelines: primary and accent colors, rounded shapes, consistent height (shadows), and responsive layouts are used to improve clarity and usability.</li>
+<li>The interaction design is guided by the ISO 9241-110 principles of human-computer interaction, with a particular emphasis on:</li>
+<ul>
+<li>Task-fit: Simple, straightforward workflows for uploading and classifying images.</li>
+<li>Self-descriptiveness: Clear labels and immediate feedback after actions.</li>
+<li>Fault tolerance: Validation of supported file formats and sizes with user-friendly error messages.</li>
+<li>Feedback and assistance: Visible hints about supported file types and immediate notifications of success after classification.</li>
+</ul>
+<li>Testing has shown that familiar, high-contrast objects are classified accurately, while abstract or complex scenes, such as mosaics or certain dog breeds, result in reduced accuracy or even misclassification.</li>
+<li>Sources and references include official documentation from ml5.js, p5.js, and Chart.js, as well as design principles from Google's Material Design Guidelines.</li>
+</ul>
+ 
+</section>
+</div>
+
+  <script>
   let model;
   let wordIndex = {};
   let indexWord = {};
