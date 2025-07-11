@@ -25,7 +25,8 @@
   </style>
 </head>
 <body>
-  <h2>Next Word Prediction</h2>
+  <h1>Wortvorhersage mit LSTM</h1>
+  <h2>Vorhersage des nächsten Wortes</h2>
   <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br>
   <button onclick="predictNext()">Vorhersage</button>
   <button onclick="continueText()">Weiter</button>
@@ -59,35 +60,30 @@ Non-standard visual forms and artistic styles appear to pose a considerable chal
 Overall, the experiment demonstrated both the strengths and the limitations of pretrained models when dealing with varying image complexities.</p>
 <h2>1) Technical Documentation</h2>
  
-  <h3>Frameworks and Libraries Used:</h3>
+  <h3>Verwendete Frameworks:</h3>
 <ul>
-<li><strong><a href="https://p5js.org/" target="_blank">p5.js</a></strong>: A JavaScript library that 
-      contains predefined templates that make it easier to develop directly in the web browser. This project was 
-      almost entirely developed in the p5.js editor, which offers instant compilation and dynamic tracking of 
-      code changes. Interactive visual elements also work smoothly.</li>
-<li><strong><a href="https://ml5js.org/" target="_blank">ml5.js</a></strong>: A simple machine learning 
-      library built on TensorFlow.js, used to load a pre-trained MobileNet model and perform image classification. 
-      Following the tutorial, I quickly and easily built the base and main functions of the application.</li>
-<li><strong><a href="https://www.chartjs.org/" target="_blank">Chart.js</a></strong>: A JavaScript library for 
-      data visualization using different types of charts. It was used to visualize the classification results through 
-      bar charts showing the confidence levels of the first three predictions.</li>
-<li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: A hosting platform 
-      for static sites, used for public accessibility of the application. The project has been uploaded to GitHub, from where 
-      it is directly deployed via this option.</li>
+
+<li><strong><a href="https://www.tensorflow.org/js" target="_blank">TensorFlowJS</a></strong>: zur Speicherung und Deployment des trainierten Netzes</li>
+<li><strong><a href="https://www.tensorflow.org/guide/keras" target="_blank">TensorFlow bzw. Keras</a></strong>: zum Erstellen und Trainieren des Netzes</li>
+<li><strong><a href="https://p5js.org/" target="_blank">JSON </a></strong>: zur Speicherung des Tokenizers (Wörterbuch)
+</li>
+<li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: Eine Hosting-Plattform für statische Websites, 
+  die für den öffentlichen Zugriff auf die Anwendung verwendet wird. Das Projekt wurde auf GitHub hochgeladen und kann dort direkt bereitgestellt werden.
+</li>
 </ul>
  
-  <h3>Technical Specifications:</h3>
+  <h3>Technische Dokumentation:</h3>
+    <p><strong>Besonderheiten</strong><br>
+Das Neuronale Netz und der Tokenizer wurden zuerst lokal in Python trainiert und in 
+einem kompatiblem Format für TensorFlowJS gespeichert. Dies beschleunigte den Trainingsprozess und 
+ermöglichte schnellere Experimente mit verschiedenen Parametrisierungen.</p>
+
+   <p><strong>Umgebungen:</strong><br></p>
 <ul>
-<ul>
-<li>The application dynamically generates a structured tabular layout, displaying images and their corresponding classification diagrams side by side.</li>
-<li>Drag-and-drop and traditional file upload mechanisms are supported for user-uploaded images, seamlessly integrated into the same layout structure as static images.</li>
-<li>In case of re-uploading a personal image, the uploaded images overwrite previous uploads, maintaining a clean and minimalist interface without duplication.</li>
-<li>All images (static and uploaded) are arranged and formatted uniformly (300x300px) to ensure a consistent user experience and visual clarity.</li>
-<li>Validation ensures that only JPG and PNG files under 5MB can be uploaded, with visible warnings if validation fails.</li>
-<li>The application is responsive and optimized for different screen sizes.</li>
+<li>Training: Python 3.7.10 für Kompatibilität mit tensorflowjs</li>
+<li>Deployment: JavaScript und HTML</li>
 </ul>
- 
-  </ul>
+    
  
   <h2>2) Subject-Specific Documentation</h2>
  
