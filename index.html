@@ -361,7 +361,77 @@ section {
   berücksichtigt zentrale Anforderungen an Usability (ISO 9241-11) und Interaktionsdesign (ISO 9241-110), etwa durch deutliche 
   Feldkennzeichnungen, Rückmeldungen und eine kontextsensitive Hilfefunktion.
 </p>
- 
+
+    <h2>Experimente</h2>
+<p>
+  <strong>Satz:</strong> <code>Guten Abend, ich wollte dir kurz schreiben</code>
+</p>
+<p>
+  <strong>Getestet mit Sequenzen von j = 1 bis 7 Wörtern:</strong>
+</p>
+<ul>
+  <li>j = 1: innerhalb k = 100</li>
+  <li>j = 2: innerhalb k = 1 <span style="color: #388e3c;">(richtig)</span></li>
+  <li>j = 3: innerhalb k = 100</li>
+  <li>j = 4: nicht innerhalb der ersten 100</li>
+  <li>j = 5: innerhalb k = 100</li>
+  <li>j = 6: innerhalb k = 100</li>
+  <li>j = 7: innerhalb k = 1 <span style="color: #388e3c;">(richtig)</span></li>
+</ul>
+
+<hr>
+
+<h5>Experiment-Log</h5>
+<pre>
+-- Iteration 0 --
+1/1 [==============================] - 0s 10ms/step
+Textvorgabe: ['Guten']
+Vorhergesagtes Wort: ['stadt'] (34.1)
+
+-- Iteration 1 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 10ms/step
+Textvorgabe: ['Guten Abend,']
+Vorhergesagtes Wort: ['ich'] (99.93)
+
+-- Iteration 2 --
+Vorhersage innerhalb k = 1 Wörter.
+1/1 [==============================] - 0s 9ms/step
+Textvorgabe: ['Guten Abend, ich']
+Vorhergesagtes Wort: ['hoffe'] (54.94)
+
+-- Iteration 3 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 8ms/step
+Textvorgabe: ['Guten Abend, ich wollte']
+Vorhergesagtes Wort: ['hoffe'] (37.74)
+
+-- Iteration 4 --
+1/1 [==============================] - 0s 9ms/step
+Textvorgabe: ['Guten Abend, ich wollte dir']
+Vorhergesagtes Wort: ['daran'] (31.2)
+
+-- Iteration 5 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 10ms/step
+Textvorgabe: ['Guten Abend, ich wollte dir kurz']
+Vorhergesagtes Wort: ['sicher'] (42.85)
+
+-- Iteration 6 --
+Vorhersage innerhalb k = 100 Wörter.
+1/1 [==============================] - 0s 9ms/step
+Textvorgabe: ['Guten Abend, ich wollte dir kurz schreiben']
+Vorhergesagtes Wort: ['weil'] (85.4)
+Vorhersage innerhalb k = 1 Wörter.
+</pre>
+
+<hr>
+
+<h5>Experiment 3: Rekonstruktion von Trainingsdaten</h5>
+<p>
+  Das Modell kann auf Basis der Trainingsdaten Textpassagen rekonstruieren (siehe <code>image_reconstruction.png</code>). Dies zeigt, dass bei Verwendung personenbezogener Daten (z.&nbsp;B. Namen, Adressen) ein Datenschutzrisiko besteht. Es wird empfohlen, solche sensiblen Daten bereits in der Vorverarbeitung zu entfernen oder zu ersetzen.
+</p>
+
 </section>
 </div>
 
