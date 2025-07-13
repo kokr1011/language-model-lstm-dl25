@@ -344,7 +344,7 @@ section {
   <h2>2) Fachliche Dokumentation</h2>
  
   <h3>Implementierung der Logik</h3>
-    <p>Die Trainingsdaten sind <it>german_chats.txt</it>. Aufgrund der begrenzten Rechenleistung und für eine sinnvolle Vorhersage 
+    <p>Die Trainingsdaten sind <i>german_chats.txt</i>. Aufgrund der begrenzten Rechenleistung und für eine sinnvolle Vorhersage 
       wurde ein kleiner Kontext-spezifischer Datensatz mit Chatnachrichten erstellt und zum Trainieren des Modells verwendet. 
       Der Text wurde in Sequenzen mit einer Maximallänge von 10 Wörtern aufgeteilt. Für ein besseres Ergebnis wurden zusätzlich 
       kürzere Sequenzen auf eine Länge von 10 gepadded und den Trainingsdaten hinzugefügt.</p>
@@ -452,7 +452,7 @@ Vorhersage innerhalb k = 1 Wörter.
   async function loadResources() {
     // Modell laden
     model = await tf.loadLayersModel('lm_tfjs/model.json');
-    console.log("✅ Modell geladen");
+    console.log("Modell geladen");
 
     // Tokenizer laden
     const response = await fetch('tokenizer_word2index.json');
@@ -466,7 +466,7 @@ Vorhersage innerhalb k = 1 Wörter.
       indexWord[parseInt(key)] = data_i2w[key];
     }
 
-    console.log("✅ Tokenizer geladen mit", Object.keys(wordIndex).length, "Wörtern");
+    console.log("Tokenizer geladen mit", Object.keys(wordIndex).length, "Wörtern");
 
   }
 
