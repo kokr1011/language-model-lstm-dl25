@@ -221,20 +221,25 @@ section {
     .helpbar {
   display: flex;
   align-items: center;
-  background: #e3f2fd;        /* Sehr helles Material-Blue-100 */
-  color: #1565c0;             /* Material-Blue-800 */
-  padding: 12px 18px;
-  border-radius: 10px;
+ /* background: #e3f2fd;        /* Sehr helles Material-Blue-100 */
+ /* color: #1565c0;             /* Material-Blue-800 */
+  background: #f5f5f5;       /* sehr helles Grau */
+  color: #616161;            /* typisches Material-Grau */
+  padding: 9px 16px;
+  border-radius: 7px;
   box-shadow: 0 1px 4px rgba(25, 118, 210, 0.11);
-  margin: 18px 0 26px 0;
-  font-size: 1.07rem;
-  font-weight: 500;
+       margin: 16px 0 18px 0;
+/*   margin: 18px 0 26px 0; */
+/*   font-size: 1.07rem; */
+  font-size: 0.98rem;
+      font-weight: 400;
 }
 
 .helpbar .material-icons {
-  font-size: 1.7em;
-  margin-right: 11px;
-  color: #1976d2;           /* Material-Blue-600 für das Icon */
+  font-size: 1.3em;
+  margin-right: 8px;
+/*   color: #1976d2;           /* Material-Blue-600 für das Icon */ */
+  color: #90a4ae;           /* dezentes Blaugrau, z.B. Material-Blue-Grey-400 */
 }
 
 .error-message {
@@ -255,19 +260,21 @@ section {
   <div id="word-pred-container">
   <h1>Wortvorhersage mit LSTM</h1>
   <h2>Vorhersage des nächsten Wortes</h2>
-  <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea>
   <div class="helpbar">
   <span class="material-icons" aria-hidden="true">info</span>
   <span id="helptext">Geben Sie einen Satz ein und klicken Sie auf "Vorhersage", um das nächste Wort zu erhalten. Über "Auto" wird der Satz automatisch ergänzt. Nutzen Sie "Stopp" und "Reset" zur Steuerung.</span>
   </div>
+    
+<textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea>
+
 <button onclick="predictNext()" title="Nächstes Wort vorhersagen">Vorhersage</button>
 <button onclick="continueText()" title="Fügt das wahrscheinlichste Wort hinzu">Weiter</button>
 <button onclick="autoGenerate()" title="Satz automatisch ergänzen">Auto</button>
 <button onclick="stopAuto()" title="Automatische Ergänzung stoppen">Stopp</button>
 <button onclick="reset()" title="Eingabe und Vorhersage zurücksetzen">Reset</button>
 
-    <label for="output" class="output-label">Wortvorschläge (Ausgabefeld):</label>
-  <div id="output" style="margin-top:20px;" aria-live="polite"></div>
+<label for="output" class="output-label">Wortvorschläge (Ausgabefeld):</label>
+<div id="output" style="margin-top:20px;" aria-live="polite"></div>
 
 
 
