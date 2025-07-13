@@ -362,9 +362,28 @@ ermöglichte schnellere Experimente mit verschiedenen Parametrisierungen.</p>
     });
     const filteredSeq = seq.filter(x => x > 0);
 
-    if (filteredSeq.length === 0) {
-      alert("Keine bekannten Wörter im Text!");
-    }
+    // if (filteredSeq.length === 0) {
+    //   alert("Keine bekannten Wörter im Text!");
+    // }
+
+    function showError(msg) {
+  let errBox = document.getElementById("errbox");
+  if (!errBox) {
+    errBox = document.createElement("div");
+    errBox.id = "errbox";
+    errBox.className = "error-message";
+    document.getElementById("output").prepend(errBox);
+  }
+  errBox.textContent = msg;
+  errBox.style.display = "block";
+  setTimeout(() => errBox.style.display = "none", 4000);
+}
+
+// dann im Code:
+if (filteredSeq.length === 0) {
+  showError("Keine bekannten Wörter im Text!");
+}
+
 
     console.log("Token-Sequenz:", filteredSeq);
     return filteredSeq;
