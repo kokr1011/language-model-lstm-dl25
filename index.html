@@ -229,11 +229,11 @@ section {
   <h1>Wortvorhersage mit LSTM</h1>
   <h2>Vorhersage des nächsten Wortes</h2>
   <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br>
-  <button onclick="predictNext()">Vorhersage</button>
-  <button onclick="continueText()">Weiter</button>
-  <button onclick="autoGenerate()">Auto</button>
-  <button onclick="stopAuto()">Stopp</button>
-  <button onclick="reset()">Reset</button>
+<button onclick="predictNext()" title="Nächstes Wort vorhersagen">Vorhersage</button>
+<button onclick="continueText()" title="Fügt das wahrscheinlichste Wort hinzu">Weiter</button>
+<button onclick="autoGenerate()" title="Satz automatisch ergänzen">Auto</button>
+<button onclick="stopAuto()" title="Automatische Ergänzung stoppen">Stopp</button>
+<button onclick="reset()" title="Eingabe und Vorhersage zurücksetzen">Reset</button>
 
   <div id="output" style="margin-top:20px;"></div>
 
