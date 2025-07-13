@@ -344,17 +344,21 @@ section {
   <h2>2) Fachliche Dokumentation</h2>
  
   <h3>Implementierung der Logik</h3>
-    <p>Die Trainingsdaten sind in der Textdatei <a href="https://raw.githubusercontent.com/kokr1011/language-model-lstm-dl25/refs/heads/main/german_chats.txt"><i>german_chats.txt</i></a> im GitHub-Projekt enthalten. Aufgrund der begrenzten Rechenleistung und für eine sinnvolle Vorhersage 
+    <p>Die Trainingsdaten sind in der Textdatei 
+      <a href="https://raw.githubusercontent.com/kokr1011/language-model-lstm-dl25/refs/heads/main/german_chats.txt"><i>german_chats.txt</i></a> 
+      im GitHub-Projekt enthalten. Aufgrund der begrenzten Rechenleistung und für eine sinnvolle Vorhersage 
       wurde ein kleiner Kontext-spezifischer Datensatz mit Chatnachrichten erstellt und zum Trainieren des Modells verwendet. 
       Der Text wurde in Sequenzen mit einer Maximallänge von 10 Wörtern aufgeteilt. Für ein besseres Ergebnis wurden zusätzlich 
       kürzere Sequenzen auf eine Länge von 10 gepadded und den Trainingsdaten hinzugefügt.</p>
     
-<p>Die Anwendung verarbeitet Benutzereingaben, wandelt den eingegebenen Text mittels Tokenizer in numerische Sequenzen um, 
+<p>Die Anwendung verarbeitet Benutzereingaben, wandelt den eingegebenen Text mittels eines Tokenizers in numerische Sequenzen um, 
   führt Padding auf die erforderliche Länge durch und gibt über das trainierte LSTM-Modell die Wahrscheinlichkeitsverteilung 
   für das jeweils nächste Wort aus. Die Schaltfläche „Vorhersage“ präsentiert dem Nutzer die fünf wahrscheinlichsten nächsten 
   Wörter. Diese können frei ausgewählt und ergänzt werden. Mit „Weiter“ wird jeweils das wahrscheinlichste Wort automatisch 
-  ergänzt. „Auto“ ergänzt den Satz fortlaufend mit den wahrscheinlichsten Wörtern bis zum Stopp. Zur Fehlerbehandlung werden 
-  unzulässige oder unbekannte Eingaben klar gekennzeichnet. Die Anwendung ist durchgängig nach Material Design gestaltet und 
+  ergänzt. „Auto“ ergänzt den Satz fortlaufend mit den wahrscheinlichsten Wörtern bis zum zehnten Wort oder bis zum Stopp-Befehl. Zur Fehlerbehandlung werden 
+  unzulässige oder unbekannte Eingaben klar gekennzeichnet.</p>
+  
+  <p>Die Anwendung ist durchgängig nach Material Design gestaltet und 
   berücksichtigt zentrale Anforderungen an Usability (ISO 9241-11) und Interaktionsdesign (ISO 9241-110), etwa durch deutliche 
   Feldkennzeichnungen, Rückmeldungen und eine kontextsensitive Hilfefunktion.
 </p>
