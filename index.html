@@ -281,18 +281,26 @@ section {
 
   <h2>Überblick</h2>
   <p>
-    This project implements an interactive web application that performs real-time 
-    image classification using the MobileNet model through the ml5.js library. Users 
-    can observe the classification of a predefined set of images or upload their own images through a modern user interface.
+    Die Aufgabe des Projekts bestand darin, ein Language Model (LM) zur Wortvorhersage auf Basis eines rekurrenten Long 
+    Short-Term Memory (LSTM) Netzwerks mit dem TensorFlow.js (TFJS) Framework bzw. der zugehörigen API zu trainieren. 
+    Über die Benutzeroberfläche können Texte eingegeben und verschiedene Optionen zur Vorhersage oder automatischen 
+    Generierung nachfolgender Wörter ausgewählt werden.
   </p>
 
   <section id="project-documentation">
  
 <h2>Diskussion</h2>
-<ul>
-    
+<p>
+Während der Trainings- und Testphase wurden zwei verschiedene Modelle mit unterschiedlichen Datensätzen trainiert und evaluiert.
+Eines der Modelle wurde mit vielfältigeren Daten trainiert und erzielte beim Testen bestimmter, im Trainingstext enthaltener Phrasen gute Ergebnisse, zeigte jedoch Schwächen bei der automatischen Generierung von Text.
+Das andere Modell, das aktuell im Projekt eingesetzt wird, ist in der Lage, automatisch vollständige und sinnvolle Sätze zu generieren, schneidet allerdings bei der Vorhersage kurzer Wortkombinationen schlechter ab.
+Für die Realisierung dieses Modells wurde ein kontextspezifischer, von ChatGPT generierter Trainingsdatensatz verwendet. Das Netz wurde zunächst mit TensorFlow in Python trainiert, anschließend in ein mit TensorFlowJS kompatibles Format exportiert und mittels TensorFlowJS in die JavaScript-basierte Webanwendung integriert.
+Aufgrund begrenzter Rechenleistung konnte lediglich ein vergleichsweise kleines Netz trainiert werden.
+Der kompakte und kontextspezifische Datensatz trug dazu bei, die Loss-Funktion effektiv zu minimieren und den Trainingskontext erfolgreich zu reproduzieren. Allerdings zeigt das Modell Schwächen bei der Generalisierung und verfügt über einen eingeschränkten Wortschatz.
+Dennoch liegen die Vorhersagen des Modells in einem insgesamt sinnvollen Bereich, wie in den weiter unten dargestellten Experimenten beschrieben wird.
   
-</ul>
+  
+</p>
     
 <h2>1) Technische Dokumentation</h2>
  
@@ -373,7 +381,7 @@ section {
     
     <h3>Experiment 2</h3>
 <p>
-  <strong>Satz:</strong> <code>Guten Abend, ich wollte dir kurz schreiben</code>
+  <strong>Test-Satz:</strong> <code>Guten Abend, ich wollte dir kurz schreiben</code>
 </p>
 <p>
   <strong>Getestet mit Sequenzen von j = 1 bis 7 Wörtern:</strong>
