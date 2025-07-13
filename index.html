@@ -127,6 +127,15 @@ button:hover, button:focus {
   background: #bbdefb;
   color: #0d47a1;
 }
+.output-label {
+  display: block;
+  font-size: 1.1rem;
+  color: #1976d2;
+  font-weight: 500;
+  margin-bottom: 6px;
+  margin-top: 28px;
+  letter-spacing: 0.05em;
+}
 
 ul, ol {
   padding-left: 22px;
@@ -257,7 +266,8 @@ section {
 <button onclick="stopAuto()" title="Automatische Ergänzung stoppen">Stopp</button>
 <button onclick="reset()" title="Eingabe und Vorhersage zurücksetzen">Reset</button>
 
-  <div id="output" style="margin-top:20px;"></div>
+    <label for="output" class="output-label">Wortvorschläge (Ausgabefeld):</label>
+  <div id="output" style="margin-top:20px;" aria-live="polite"></div>
 
 
 
