@@ -191,6 +191,37 @@ section {
   #word-pred-container{
     margin-left:20px;
   }
+    .helpbar {
+  display: flex;
+  align-items: center;
+  background: #fbc02d;
+  color: #212121;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(251,192,45,0.15);
+  margin: 18px 0 26px 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.helpbar .material-icons {
+  font-size: 1.6em;
+  margin-right: 11px;
+  color: #f9a825;
+}
+
+.error-message {
+  background: #ffcdd2;
+  color: #b71c1c;
+  padding: 8px 18px;
+  border-radius: 8px;
+  margin: 14px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 6px rgba(211,47,47,0.09);
+  display: none; /* Wird via JS angezeigt */
+}
+
   </style>
 </head>
 <body>
@@ -198,12 +229,19 @@ section {
   <h1>Wortvorhersage mit LSTM</h1>
   <h2>Vorhersage des nächsten Wortes</h2>
   <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br>
-  <button onclick="predictNext()">Vorhersage</button>
-  <button onclick="continueText()">Weiter</button>
-  <button onclick="autoGenerate()">Auto</button>
-  <button onclick="stopAuto()">Stopp</button>
-  <button onclick="reset()">Reset</button>
+  <button onclick="predictNext()" title="Nächstes Wort vorhersagen">Vorhersage</button>
+<button onclick="continueText()" title="Fügt das wahrscheinlichste Wort hinzu">Weiter</button>
+<button onclick="autoGenerate()" title="Satz automatisch ergänzen">Auto</button>
+<button onclick="stopAuto()" title="Automatische Ergänzung stoppen">Stopp</button>
+<button onclick="reset()" title="Eingabe und Vorhersage zurücksetzen">Reset</button>
+
   <div id="output" style="margin-top:20px;"></div>
+
+  <div class="helpbar">
+  <span class="material-icons" aria-hidden="true">help_outline</span>
+  <span id="helptext">Geben Sie einen Satz ein und klicken Sie auf "Vorhersage", um das nächste Wort zu erhalten. Über "Auto" wird der Satz automatisch ergänzt. Nutzen Sie "Stopp" und "Reset" zur Steuerung.</span>
+</div>
+
 </div>
 <div id="outer-container">
   <h2>Dokumentation</h2>
