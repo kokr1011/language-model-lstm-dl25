@@ -289,16 +289,13 @@ section {
   <section id="project-documentation">
  
 <h2>Diskussion</h2>
-<p>The pretrained model correctly classified familiar everyday objects, places, landscapes, and representatives of flora and fauna in most cases.
-However, accurate classification generally required photos with good contrast, high resolution, and a clear depiction of the main object.
-It was particularly striking that even a partial view, such as a fragment of a tandem bicycle, led to a highly accurate classification, although even the human eye struggles to detect the second set of pedals and handlebars.
-On the other hand, the model's performance declined when images were more abstract, contained multiple objects, or when the objects showed a similar appearance but belonged to different classes.
-For example, classifying the Laika dog breed proved difficult, as it is easily confused with other breeds or even wolves.
-Several test images of this breed consistently resulted in misclassifications.
-A notable failure also appeared in the recognition of the Eiffel Tower, where neither standard photographs nor mosaic representations were correctly classified.
-This suggests that both landmarks and famous structures are not reliably recognized by the model.
-Non-standard visual forms and artistic styles appear to pose a considerable challenge for accurate classification.
-Overall, the experiment demonstrated both the strengths and the limitations of pretrained models when dealing with varying image complexities.</p>
+<ul>
+    <li>Wenn das Netzwerk zu viele Neuronen hat, konvergiert es viel langsamer.</li>
+  <li>Beobachtungen während des Trainings: Es wurden als Experiment auch andere Datensätze (Online-Artikel, 
+    mit ChatGPT generierte Texte, sowie gemischte Daten) genutzt. Die Online-Artikel haben sehr diverse Themen 
+    mit unterschiedlichem Kontext umfasst und das relativ kleine Netz konnte den Kontext nicht ausreichend gut 
+    erlernen, was zu einer eher zufälligen Vorhersage geführt hat. </li>
+</ul>
     
 <h2>1) Technische Dokumentation</h2>
  
@@ -331,7 +328,12 @@ Overall, the experiment demonstrated both the strengths and the limitations of p
           einem kompatiblem Format für TensorFlowJS gespeichert. Dies beschleunigte den Trainingsprozess und 
           ermöglichte schnellere Experimente mit verschiedenen Parametrisierungen.
       </li>
-      <li>Wenn das Netzwerk zu viele Neuronen hat, konvergiert es viel langsamer.</li>
+      <li>Das Neuronale Netz besteht aus 4 Lagen. Die erste ist ein Embedding-Layer (N_in=Anzahl Wörter, N_out=100), 
+        das für eine bessere Wahrnehmung von dem Kontext und der Bedeutung sorgt. Danach folgen zwei LSTM-Layer (N = 100), 
+        gefolgt von einem Output-Layer (N = Anzahl Wörter) mit so vielen Neuronen wie die Anzahl der bekannten Wörter im Wörterbuch. 
+        Als Loss-funktion wurde die "Categorical Cross-Entropy" genommen. Der gewählte Optimierer ist Adam mit einer Lernrate von 0,01. 
+        Das Training wurde in Batches von 32 über 100 Epochen durchgeführt.</li>
+    
     </ul>
 
 
@@ -345,6 +347,11 @@ Overall, the experiment demonstrated both the strengths and the limitations of p
   <h2>2) Fachliche Dokumentation</h2>
  
   <h3>Implementierung der Logik</h3>
+    <p>Die Trainingsdaten sind german_chats.txt -> Aufgrund der begrenzten Rechenleistung und für eine sinnvolle Vorhersage 
+      wurde ein kleiner Kontext-spezifischer Datensatz mit Chatnachrichten erstellt und zum Trainieren des Modells verwendet. 
+      Der Text wurde in Sequenzen mit einer Maximallänge von 10 Wörtern aufgeteilt. Für ein besseres Ergebnis wurden zusätzlich 
+      kürzere Sequenzen auf eine Länge von 10 gepadded und den Trainingsdaten hinzugefügt.</p>
+    
 <p>Die Anwendung verarbeitet Benutzereingaben, wandelt den eingegebenen Text mittels Tokenizer in numerische Sequenzen um, 
   führt Padding auf die erforderliche Länge durch und gibt über das trainierte LSTM-Modell die Wahrscheinlichkeitsverteilung 
   für das jeweils nächste Wort aus. Die Schaltfläche „Vorhersage“ präsentiert dem Nutzer die fünf wahrscheinlichsten nächsten 
