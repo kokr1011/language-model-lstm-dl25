@@ -291,10 +291,7 @@ section {
 <h2>Diskussion</h2>
 <ul>
     <li>Wenn das Netzwerk zu viele Neuronen hat, konvergiert es viel langsamer.</li>
-  <li>Beobachtungen während des Trainings: Es wurden als Experiment auch andere Datensätze (Online-Artikel, 
-    mit ChatGPT generierte Texte, sowie gemischte Daten) genutzt. Die Online-Artikel haben sehr diverse Themen 
-    mit unterschiedlichem Kontext umfasst und das relativ kleine Netz konnte den Kontext nicht ausreichend gut 
-    erlernen, was zu einer eher zufälligen Vorhersage geführt hat. </li>
+  
 </ul>
     
 <h2>1) Technische Dokumentation</h2>
@@ -363,6 +360,13 @@ section {
 </p>
 
     <h2>Experimente</h2>
+    <h3>Experiment 1</h3>
+    <li>Beobachtungen während des Trainings: Es wurden als Experiment auch andere Datensätze (Online-Artikel, 
+    mit ChatGPT generierte Texte, sowie gemischte Daten) genutzt. Die Online-Artikel haben sehr diverse Themen 
+    mit unterschiedlichem Kontext umfasst und das relativ kleine Netz konnte den Kontext nicht ausreichend gut 
+    erlernen, was zu einer eher zufälligen Vorhersage geführt hat. </li>
+    
+    <h3>Experiment 2</h3>
 <p>
   <strong>Satz:</strong> <code>Guten Abend, ich wollte dir kurz schreiben</code>
 </p>
@@ -427,7 +431,7 @@ Vorhersage innerhalb k = 1 Wörter.
 
 <hr>
 
-<h5>Experiment 3: Rekonstruktion von Trainingsdaten</h5>
+<h5>Experiment 3 Rekonstruktion von Trainingsdaten</h5>
 <p>
   Das Modell kann auf Basis der Trainingsdaten Textpassagen rekonstruieren (siehe <code>image_reconstruction.png</code>). Dies zeigt, dass bei Verwendung personenbezogener Daten (z.&nbsp;B. Namen, Adressen) ein Datenschutzrisiko besteht. Es wird empfohlen, solche sensiblen Daten bereits in der Vorverarbeitung zu entfernen oder zu ersetzen.
 </p>
