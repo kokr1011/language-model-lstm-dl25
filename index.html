@@ -212,20 +212,20 @@ section {
     .helpbar {
   display: flex;
   align-items: center;
-  background: #fbc02d;
-  color: #212121;
+  background: #e3f2fd;        /* Sehr helles Material-Blue-100 */
+  color: #1565c0;             /* Material-Blue-800 */
   padding: 12px 18px;
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(251,192,45,0.15);
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.11);
   margin: 18px 0 26px 0;
-  font-size: 1.05rem;
+  font-size: 1.07rem;
   font-weight: 500;
 }
 
 .helpbar .material-icons {
-  font-size: 1.6em;
+  font-size: 1.7em;
   margin-right: 11px;
-  color: #f9a825;
+  color: #1976d2;           /* Material-Blue-600 für das Icon */
 }
 
 .error-message {
@@ -249,7 +249,7 @@ section {
   <h2>Vorhersage des nächsten Wortes</h2>
   <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br> 
   <div class="helpbar">
-  <span class="material-icons" aria-hidden="true">help_outline</span>
+  <span class="material-icons" aria-hidden="true">info</span>
   <span id="helptext">Geben Sie einen Satz ein und klicken Sie auf "Vorhersage", um das nächste Wort zu erhalten. Über "Auto" wird der Satz automatisch ergänzt. Nutzen Sie "Stopp" und "Reset" zur Steuerung.</span>
   </div>
 <button onclick="predictNext()" title="Nächstes Wort vorhersagen">Vorhersage</button>
