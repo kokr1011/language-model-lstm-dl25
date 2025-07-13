@@ -303,10 +303,22 @@ Overall, the experiment demonstrated both the strengths and the limitations of p
  
   <h3>Verwendete Frameworks:</h3>
 <ul>
-
-<li><strong><a href="https://www.tensorflow.org/js" target="_blank">TensorFlowJS</a></strong>: zur Speicherung und Deployment des trainierten Netzes</li>
-<li><strong><a href="https://www.tensorflow.org/guide/keras" target="_blank">TensorFlow bzw. Keras</a></strong>: zum Erstellen und Trainieren des Netzes</li>
-<li><strong><a href="https://p5js.org/" target="_blank">JSON </a></strong>: zur Speicherung des Tokenizers (Wörterbuch)
+  <li>
+    <strong><a href="https://numpy.org/" target="_blank">NumPy</a></strong>: 
+    Zur effizienten numerischen Datenverarbeitung und zur Erzeugung der Sequenzen während der Datenvorverarbeitung in Python.
+  </li>
+ <li>
+    <strong><a href="https://www.tensorflow.org/guide/keras" target="_blank">TensorFlow / Keras</a></strong>: 
+    Zum Erstellen und Trainieren des LSTM-Neuronalen Netzes (bestehend aus Embedding-Layer, zwei LSTM-Schichten und Output-Layer).
+  </li>
+<li>
+    <strong><a href="https://www.tensorflow.org/js" target="_blank">TensorFlowJS</a></strong>:
+    Für die Konvertierung und das Deployment des trainierten Modells im Webbrowser.
+  </li>
+ <li>
+    <strong><a href="https://www.json.org/json-en.html" target="_blank">JSON</strong>:
+    Als Austauschformat zur Speicherung und Übertragung des Tokenizers (Wörterbuch) zwischen Python und JavaScript.
+  </li>
 </li>
 <li><strong><a href="https://docs.github.com/en/pages" target="_blank">GitHub Pages</a></strong>: Eine Hosting-Plattform für statische Websites, 
   die für den öffentlichen Zugriff auf die Anwendung verwendet wird. Das Projekt wurde auf GitHub hochgeladen und kann dort direkt bereitgestellt werden.
@@ -326,27 +338,20 @@ ermöglichte schnellere Experimente mit verschiedenen Parametrisierungen.</p>
 </ul>
     
  
-  <h2>2) Subject-Specific Documentation</h2>
+  <h2>2) Fachliche Dokumentation</h2>
  
-  <h3>Implementation of Logic and Key Elements:</h3>
-<ul>
-<ul>
-<li>The application classifies a predefined set of static images using a pre-trained MobileNet model from ml5.js, dynamically displaying the results in a structured and adaptive table structure.</li>
-<li>Image classification is triggered automatically in the setup() function after preloading the images using the preload() method. Each image and its corresponding diagram are added as a new row in the table, maintaining a clear and consistent structure.</li>
-<li>Labels under each image serve to further explain the object being classified. The classification results are visualized using bar charts that show the three best predictions and their corresponding confidence percentages. By hovering over each of the bars, the specific numbers can be read.</li>
-<li>A dedicated upload section allows users to classify their own images, providing visual and interactive consistency with the predefined examples.</li>
-<li>The visual design follows Google’s Material Design guidelines: primary and accent colors, rounded shapes, consistent height (shadows), and responsive layouts are used to improve clarity and usability.</li>
-<li>The interaction design is guided by the ISO 9241-110 principles of human-computer interaction, with a particular emphasis on:</li>
-<ul>
-<li>Task-fit: Simple, straightforward workflows for uploading and classifying images.</li>
-<li>Self-descriptiveness: Clear labels and immediate feedback after actions.</li>
-<li>Fault tolerance: Validation of supported file formats and sizes with user-friendly error messages.</li>
-<li>Feedback and assistance: Visible hints about supported file types and immediate notifications of success after classification.</li>
-</ul>
-<li>Testing has shown that familiar, high-contrast objects are classified accurately, while abstract or complex scenes, such as mosaics or certain dog breeds, result in reduced accuracy or even misclassification.</li>
-<li>Sources and references include official documentation from ml5.js, p5.js, and Chart.js, as well as design principles from Google's Material Design Guidelines.</li>
-</ul>
- 
+  <h3>Implementierung der Logik:</h3>
+<p>Die Anwendung verarbeitet Benutzereingaben, wandelt den eingegebenen Text mittels Tokenizer in numerische Sequenzen um, 
+  führt Padding auf die erforderliche Länge durch und gibt über das trainierte LSTM-Modell die Wahrscheinlichkeitsverteilung 
+  für das jeweils nächste Wort aus. Die Schaltfläche „Vorhersage“ präsentiert dem Nutzer die fünf wahrscheinlichsten nächsten 
+  Wörter. Diese können frei ausgewählt und ergänzt werden. Mit „Weiter“ wird jeweils das wahrscheinlichste Wort automatisch 
+  ergänzt. „Auto“ ergänzt den Satz fortlaufend mit den wahrscheinlichsten Wörtern bis zum Stopp. Zur Fehlerbehandlung werden 
+  unzulässige oder unbekannte Eingaben klar gekennzeichnet. Die Anwendung ist durchgängig nach Material Design gestaltet und 
+  berücksichtigt zentrale Anforderungen an Usability (ISO 9241-11) und Interaktionsdesign (ISO 9241-110), etwa durch deutliche 
+  Feldkennzeichnungen, Rückmeldungen und eine kontextsensitive Hilfefunktion.
+</p>
+    <h3>Besonderheiten:</h3>
+ <p>Wenn das Netzwerk zu viele Neuronen hat, konvergiert es viel langsamer.</p>
 </section>
 </div>
 
