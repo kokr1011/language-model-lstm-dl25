@@ -195,7 +195,6 @@ section {
   box-shadow: 0 4px 20px rgba(0,0,0,0.09), 0 1.5px 5px rgba(0,0,0,0.04);
   border-radius: 16px;
   padding: 32px 40px 40px 40px;
-  display: flex;
   flex-direction: column;
   align-items: center;
 }
@@ -244,14 +243,15 @@ section {
   </style>
 </head>
 <body>  
-  <div class="helpbar">
-  <span class="material-icons" aria-hidden="true">help_outline</span>
-  <span id="helptext">Geben Sie einen Satz ein und klicken Sie auf "Vorhersage", um das nächste Wort zu erhalten. Über "Auto" wird der Satz automatisch ergänzt. Nutzen Sie "Stopp" und "Reset" zur Steuerung.</span>
-</div>
+ 
   <div id="word-pred-container">
   <h1>Wortvorhersage mit LSTM</h1>
   <h2>Vorhersage des nächsten Wortes</h2>
-  <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br>
+  <textarea id="input" rows="3" cols="60" placeholder="Gib hier deinen Satz ein..."></textarea><br><br> 
+  <div class="helpbar">
+  <span class="material-icons" aria-hidden="true">help_outline</span>
+  <span id="helptext">Geben Sie einen Satz ein und klicken Sie auf "Vorhersage", um das nächste Wort zu erhalten. Über "Auto" wird der Satz automatisch ergänzt. Nutzen Sie "Stopp" und "Reset" zur Steuerung.</span>
+  </div>
 <button onclick="predictNext()" title="Nächstes Wort vorhersagen">Vorhersage</button>
 <button onclick="continueText()" title="Fügt das wahrscheinlichste Wort hinzu">Weiter</button>
 <button onclick="autoGenerate()" title="Satz automatisch ergänzen">Auto</button>
